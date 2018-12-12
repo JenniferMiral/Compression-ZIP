@@ -1,0 +1,48 @@
+Encodage du son:
+
+Le son est un signal analogique c'est à dire un signal continu au cours du temps. Il est également continu en amplitude, ce qui signifie qu'il peut prendre toutes les valeurs possibles (donc des nombres flottants) contrairement au signal numérique qui lui n’est composé que de valeurs réelles.
+
+Or pour pouvoir représenter un son sur un ordinateur il faut obligatoirement travaillé avec des valeurs numériques.
+
+Pour convertir ce signal qui varie dans le temps ont utilise un convertisseur analogique numérique. Les valeurs numériques obtenues seront alors stocké sous formes binaire. Ont retrouve principalement ce type de convertisseur dans des périphériques comme les lecteurs optiques, les cartes sons, les cartes d’acquisition vidéo etc.
+
+La numérisation se divise en deux étapes:
+
+- L'échantillonage: qui consiste à prélever un certains nombres d’échantillons sur une « fréquences d’échantillonages »
+- La quantification: on code les valeurs numérique obtenue sur un certains nombre de bits.
+
+Echantillonage :
+
+On relève à des intervalles de temps précis l’amplitude du signal analytique. Plus la fréquence d’échantillonage sera grande (c’est à dire un temps entre les relevé très court) plus les mesures seront fidèle au modèle originale. Cet intervalle de temps est aussi appelé taux d’échantillonage. Pour reconstituer un son qui semble continue à l’oreille humaine il faut des échantillons environs tout les 10 000èmes de secondes. C’est pourquoi on travaille avec un taux d’échantillonage par secondes exprimés en Hertz.
+
+Les taux d'échantillonage ne sont pas arbitraire, le théorème de Nyquist-Shannon stipule que la fréquence d’échantillonage doit être égale ou supérieur au double de la fréquence maximale contenue dans le signal. Notre oreille pouvant percevoir jusqu’au 22000Hertz il faut un taux d’échantillonage de l’ordre de 44000Hertz pour avoir une qualité satisafaisante.
+
+Le CD à une fréquence variant entre 20 et 20000 Hz donc le taux d'échantillonage sera de 44kHz
+Un téléphone portable une fréquence entre 300 et 4000 Hz donc le taux d'échantillonage sera de 8kHz
+
+Quantification : Consiste à affecter une valeur numérique à chaque échantillon prélevé
+
+Le quantificateur détermine dans quel intervalle de quantification (de taille Q) l'échantillon se situe, et lui affecte une valeur qui représente le point central de cet intervalle. Ce procédé permet d'attribuer à l'amplitude de chaque échantillon un nombre binaire réel. Plus la capacité de quantification (c’est à dire le nombre de bits sur lesquels l’information va pouvoir être stockée) plus le son de chaque échantillon sera proche du réel.
+
+Stocker le son
+
+C’est valeurs obtenues sont stockée sous forme binaire dont si on travaille sur 8bits les échantillons peuvent avoir 256 fréquences sonores différentes. C’est pour cela que généralement le son est codé sur 16bits.
+
+Calcul de la taille d’une séquence sonore non compressée :
+
+Formule de la taille en octet d’une séquence sonore : Taux d’échantillonage * (nb Bits /8) * nbsecondes * nbVoies.
+
+Exemple avec un CD:
+
+On connaît la taille d’un échantillon si on connaît le nombre de bits sur lequels il est codé. Si le codage se fait sur 16 bits, chaque échantillon occuperas 2 octet.
+
+Poids de chaque seconde d’enregistrement : si on travaille avec un taux de 44,1 kHz (norme pour les CD) et que les échantillons sont stockés sous 16 bits. 44100 échantillons stockés sur 2 octes donc chaque seconde prend 88ko de mémoire.
+
+Donc une piste de 10secondes d’enregistrement audio sont égales à 880ko. 
+
+Son stéréo on double les pistes donc 1660ko. donc une minute = 9960ko. 
+C’est pour cela qu’un CD de 700mo de capacité ne pourra pas stocker plus de 70min de musique.
+
+D’ou la nécessité de compresser les fichiers audio.
+
+Compression :
